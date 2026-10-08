@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { useOS } from "@/lib/context/OSContext";
 import { TaskRow } from "@/components/tasks/TaskRow";
 import { Button } from "@/components/ui/Button";
-import { SectionHeader } from "@/components/ui/StatCard";
 import { Card } from "@/components/ui/Card";
-import { Plus, Search, Filter, CheckSquare } from "lucide-react";
+import { Plus, Search, CheckSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 
 export function TasksPage() {
   const { tasks, projects, setQuickAddModalType } = useOS();
@@ -116,9 +116,10 @@ export function TasksPage() {
       <div className="space-y-2">
         {filteredTasks.length === 0 ? (
           <div className="p-12 text-center bg-[#0F141A]/40 rounded-[8px] border border-dashed border-white/10 font-mono-tech text-xs text-[#58616B]">
-            // No matching tasks found. Adjust filters or register a new task.
+            {"// No matching tasks found. Adjust filters or register a new task."}
           </div>
         ) : (
+
           filteredTasks.map((task) => <TaskRow key={task.id} task={task} />)
         )}
       </div>

@@ -123,7 +123,8 @@ export function EmptyState({
       )}
     >
       <div className="w-10 h-10 rounded-[6px] border border-white/10 flex items-center justify-center mb-3 bg-[#131A21]/60 text-[#8B96A3]">
-        <span className="font-mono-tech text-xs">// 00</span>
+        <span className="font-mono-tech text-xs">{"// 00"}</span>
+
       </div>
       <h3 className="font-sans-main text-sm font-semibold tracking-wider uppercase text-[#F4F7FA] mb-1">
         {title}

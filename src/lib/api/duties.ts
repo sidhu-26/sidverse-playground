@@ -1,7 +1,8 @@
 import { Duty } from "../types";
 import { INITIAL_DUTIES } from "../mockData";
 
-let dutiesStore = [...INITIAL_DUTIES];
+const dutiesStore = [...INITIAL_DUTIES];
+
 
 export const dutiesApi = {
   async getDuties(): Promise<Duty[]> {

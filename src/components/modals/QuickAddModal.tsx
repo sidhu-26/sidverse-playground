@@ -89,11 +89,11 @@ export function QuickAddModal() {
     setQuickAddModalType(null);
   };
 
-  const handleEventSubmit = (e: React.FormEvent) => {
+  const handleEventSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!eventTitle.trim()) return;
 
-    createEvent({
+    await createEvent({
       title: eventTitle.trim(),
       date: eventDate,
       startTime: eventStartTime,
@@ -121,12 +121,12 @@ export function QuickAddModal() {
     setQuickAddModalType(null);
   };
 
-  const handleDeadlineSubmit = (e: React.FormEvent) => {
+  const handleDeadlineSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!deadlineTitle.trim()) return;
 
     const targetTs = new Date(`${deadlineDate}T${deadlineTime || "00:00"}`).getTime();
-    createDeadline({
+    await createDeadline({
       title: deadlineTitle.trim(),
       dueDate: `${deadlineDate}T${deadlineTime || "00:00"}:00Z`,
       targetTimestamp: targetTs || Date.now() + 86400000,
@@ -138,6 +138,7 @@ export function QuickAddModal() {
     setDeadlineTitle("");
     setQuickAddModalType(null);
   };
+
 
   return (
     <>
@@ -435,9 +436,10 @@ export function QuickAddModal() {
                 </label>
                 <select
                   value={dutyFrequency}
-                  onChange={(e) => setDutyFrequency(e.target.value as any)}
+                  onChange={(e) => setDutyFrequency(e.target.value as "daily" | "weekly" | "monthly")}
                   className="w-full bg-[#07090D] border border-white/10 rounded px-3 py-2 text-xs text-[#F4F7FA]"
                 >
+
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
                   <option value="monthly">Monthly</option>
@@ -498,7 +500,7 @@ export function QuickAddModal() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               <div>
                 <label className="block text-[11px] font-mono-tech text-[#8B96A3] uppercase mb-1">
                   Target Date
@@ -522,7 +524,24 @@ export function QuickAddModal() {
                   className="w-full bg-[#07090D] border border-white/10 rounded px-2 py-1.5 text-xs text-[#F4F7FA] font-mono-tech"
                 />
               </div>
+
+              <div>
+                <label className="block text-[11px] font-mono-tech text-[#8B96A3] uppercase mb-1">
+                  Priority
+                </label>
+                <select
+                  value={deadlinePriority}
+                  onChange={(e) => setDeadlinePriority(e.target.value as Priority)}
+                  className="w-full bg-[#07090D] border border-white/10 rounded px-2 py-1.5 text-xs text-[#F4F7FA] font-mono-tech"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
             </div>
+
 
             <div className="flex justify-end gap-2 pt-3 border-t border-white/[0.08]">
               <Button

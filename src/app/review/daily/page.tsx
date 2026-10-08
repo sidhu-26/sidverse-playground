@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import { useOS } from "@/lib/context/OSContext";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { FileCheck2, CheckCircle2, AlertCircle, Clock, ArrowRight } from "lucide-react";
 import { StatCard } from "@/components/ui/StatCard";
+import { FileCheck2, ArrowRight } from "lucide-react";
+
 
 export default function DailyReviewPage() {
-  const { dailyReview, tasks, setQuickAddModalType } = useOS();
+  const { dailyReview, tasks, setQuickAddModalType, saveDailyReview } = useOS();
 
   const [wentWell, setWentWell] = useState(dailyReview.wentWellNotes);
   const [remains, setRemains] = useState(dailyReview.remainsNotes);
@@ -18,7 +19,13 @@ export default function DailyReviewPage() {
   const completedCount = tasks.filter((t) => t.status === "completed").length;
   const pendingCount = tasks.filter((t) => t.status === "pending").length;
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const combinedNotes = JSON.stringify({
+      wentWell,
+      remains,
+      tomorrow,
+    });
+    await saveDailyReview(combinedNotes);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -120,7 +127,7 @@ export default function DailyReviewPage() {
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" />
             <h3 className="font-sans-main text-xs font-semibold tracking-wider uppercase text-[#F4F7FA]">
-              TOMORROW'S FOCUS
+              {"TOMORROW'S FOCUS"}
             </h3>
           </div>
           <textarea
@@ -132,6 +139,7 @@ export default function DailyReviewPage() {
           />
         </Card>
       </div>
+
 
       <div className="flex justify-end gap-3">
         <Button variant="secondary" onClick={handleSave}>

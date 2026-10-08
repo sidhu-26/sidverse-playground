@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useOS } from "@/lib/context/OSContext";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Settings as SettingsIcon, Monitor, Bell, Clock, Keyboard, Database, Shield, Download, Upload, Check } from "lucide-react";
+import { Settings as SettingsIcon, Monitor, Clock, Keyboard, Database, Download, Check } from "lucide-react";
 
 export default function SettingsPage() {
   const { tasks, projects, goals, duties, deadlines } = useOS();

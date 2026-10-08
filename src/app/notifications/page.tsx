@@ -84,8 +84,9 @@ export default function NotificationsPage() {
       <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className="p-12 text-center bg-[#0F141A]/40 rounded-[8px] border border-dashed border-white/10 font-mono-tech text-xs text-[#58616B]">
-            // No notifications found in this stream.
+            {"// No notifications found in this stream."}
           </div>
+
         ) : (
           filtered.map((item) => (
             <Card

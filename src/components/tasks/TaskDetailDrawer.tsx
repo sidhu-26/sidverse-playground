@@ -44,12 +44,13 @@ export function TaskDetailDrawer() {
     (a) => a.targetTitle.toLowerCase() === task.title.toLowerCase()
   );
 
-  const handleRescheduleSubmit = (e: React.FormEvent) => {
+  const handleRescheduleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newDate) return;
-    rescheduleTask(task.id, newDate, newTime || task.dueTime);
+    await rescheduleTask(task.id, newDate, newTime || task.dueTime);
     setIsRescheduling(false);
   };
+
 
   return (
     <Drawer
@@ -121,8 +122,9 @@ export function TaskDetailDrawer() {
             className="p-3 bg-[#131A21] border border-white/10 rounded-[6px] space-y-3 animate-in fade-in"
           >
             <div className="text-[11px] font-mono-tech text-[#00E5FF] uppercase">
-              // Reschedule Target
+              {"// Reschedule Target"}
             </div>
+
             <div className="grid grid-cols-2 gap-2">
               <input
                 type="date"

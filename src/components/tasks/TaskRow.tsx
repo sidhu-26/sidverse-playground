@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { Task } from "@/lib/types";
 import { useOS } from "@/lib/context/OSContext";
-import { PriorityBadge, StatusBadge } from "@/components/ui/Badge";
+import { PriorityBadge } from "@/components/ui/Badge";
+
 import { Check, MoreHorizontal, Clock, FolderGit2, Play, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

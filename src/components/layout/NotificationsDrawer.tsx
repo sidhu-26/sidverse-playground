@@ -82,8 +82,9 @@ export function NotificationsDrawer() {
         <div className="space-y-2">
           {filteredNotifications.length === 0 ? (
             <div className="py-12 text-center text-xs font-mono-tech text-[#58616B]">
-              // No notifications in this category.
+              {"// No notifications in this category."}
             </div>
+
           ) : (
             filteredNotifications.map((notif) => (
               <div

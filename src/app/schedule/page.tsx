@@ -4,15 +4,13 @@ import React, { useState } from "react";
 import { useOS } from "@/lib/context/OSContext";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { SectionHeader } from "@/components/ui/StatCard";
 import { StatusBadge } from "@/components/ui/Badge";
-import { CalendarDays, Clock, Plus, ChevronLeft, ChevronRight, FolderGit2 } from "lucide-react";
+import { CalendarDays, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function SchedulePage() {
   const { events, tasks, setQuickAddModalType } = useOS();
   const [viewMode, setViewMode] = useState<"day" | "week">("day");
-  const [selectedDayOffset, setSelectedDayOffset] = useState(0);
 
   const hours = Array.from({ length: 15 }, (_, i) => i + 8); // 08:00 to 22:00
 

@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useOS } from "@/lib/context/OSContext";
 import { Card } from "@/components/ui/Card";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { SectionHeader } from "@/components/ui/StatCard";
-import { FolderGit2, ArrowRight, Clock, ShieldAlert, CheckSquare } from "lucide-react";
+import { FolderGit2, ArrowRight, ShieldAlert } from "lucide-react";
 
 export default function ProjectsPage() {
   const { projects } = useOS();

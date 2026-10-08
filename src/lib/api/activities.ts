@@ -1,24 +1,36 @@
-import { Activity } from "../types";
-import { INITIAL_ACTIVITIES } from "../mockData";
+import { apiClient } from "./client";
+import { BackendActivity, BackendActivityListResponse } from "../types/backend";
 
-let activitiesStore = [...INITIAL_ACTIVITIES];
+export interface ActivityQueryParams {
+  entity_type?: string;
+  entity_id?: string;
+  action?: string;
+  start_at?: string;
+  end_at?: string;
+  page?: number;
+  page_size?: number;
+}
 
 export const activitiesApi = {
-  async getActivities(): Promise<Activity[]> {
-    return Promise.resolve([...activitiesStore]);
+  async getActivities(params: ActivityQueryParams = {}): Promise<BackendActivityListResponse> {
+    const query = new URLSearchParams();
+    if (params.entity_type) query.set("entity_type", params.entity_type);
+    if (params.entity_id) query.set("entity_id", params.entity_id);
+    if (params.action) query.set("action", params.action);
+    if (params.start_at) query.set("start_at", params.start_at);
+    if (params.end_at) query.set("end_at", params.end_at);
+    if (params.page) query.set("page", String(params.page));
+    if (params.page_size) query.set("page_size", String(params.page_size));
+
+    const qs = query.toString();
+    return apiClient<BackendActivityListResponse>(`/api/history${qs ? `?${qs}` : ""}`, {
+      method: "GET",
+    });
   },
 
-  async logActivity(item: Omit<Activity, "id" | "timestamp" | "date">): Promise<Activity> {
-    const now = new Date();
-    const hh = String(now.getHours()).padStart(2, "0");
-    const mm = String(now.getMinutes()).padStart(2, "0");
-    const act: Activity = {
-      ...item,
-      id: `act-${Date.now()}`,
-      timestamp: `${hh}:${mm}`,
-      date: now.toISOString().slice(0, 10),
-    };
-    activitiesStore = [act, ...activitiesStore];
-    return Promise.resolve(act);
+  async getActivityById(id: string): Promise<BackendActivity> {
+    return apiClient<BackendActivity>(`/api/history/${id}`, {
+      method: "GET",
+    });
   },
 };

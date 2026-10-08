@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { StatusBadge, PriorityBadge } from "@/components/ui/Badge";
 import { Play, Check, Clock, FolderGit2, AlertTriangle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export function NextUpCard() {
   const {
@@ -29,7 +28,7 @@ export function NextUpCard() {
     return (
       <Card className="p-5 border-dashed border-white/10 text-center">
         <div className="font-mono-tech text-xs text-[#58616B] uppercase mb-1">
-          // CURRENT FOCUS STATUS
+          {"// CURRENT FOCUS STATUS"}
         </div>
         <div className="font-sans-main text-sm text-[#F4F7FA]">
           All immediate tasks completed. Command queue clear.
@@ -72,10 +71,11 @@ export function NextUpCard() {
         <div className="space-y-2 min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span className="font-mono-tech text-[10px] text-[#00E5FF] tracking-wider uppercase">
-              // NEXT UP
+              {"// NEXT UP"}
             </span>
             <StatusBadge status={activeTask.status} />
             <PriorityBadge priority={activeTask.priority} />
+
             {activeTask.projectName && (
               <span className="font-mono-tech text-[10px] text-[#8B96A3] flex items-center gap-1">
                 <FolderGit2 className="w-3 h-3 text-[#58616B]" />

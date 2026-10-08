@@ -118,7 +118,7 @@ function ProjectDetailContent() {
           return (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key as any)}
+              onClick={() => setActiveTab(tab.key as "overview" | "tasks" | "schedule" | "notes" | "activity")}
               className={cn(
                 "flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] text-xs font-mono-tech uppercase transition-colors shrink-0 cursor-pointer",
                 isActive
@@ -128,6 +128,7 @@ function ProjectDetailContent() {
             >
               <Icon className="w-3.5 h-3.5" />
               <span>{tab.label}</span>
+
             </button>
           );
         })}
@@ -183,7 +184,7 @@ function ProjectDetailContent() {
                 ))
               ) : (
                 <div className="text-xs font-mono-tech text-[#58616B] py-4 text-center">
-                  // No specific hard deadlines registered for this workstream.
+                  {"// No specific hard deadlines registered for this workstream."}
                 </div>
               )}
             </div>
@@ -226,7 +227,7 @@ function ProjectDetailContent() {
       {activeTab === "notes" && (
         <Card className="p-5 bg-[#0F141A] space-y-3">
           <div className="font-mono-tech text-xs text-[#00E5FF] uppercase">
-            // ARCHITECTURAL NOTES & SPECIFICATIONS
+            {"// ARCHITECTURAL NOTES & SPECIFICATIONS"}
           </div>
           <textarea
             defaultValue={`- Primary focus on low latency and resilient state persistence.
@@ -246,7 +247,7 @@ function ProjectDetailContent() {
       {activeTab === "activity" && (
         <Card className="p-5 bg-[#0F141A] space-y-3">
           <div className="font-mono-tech text-xs text-[#8B96A3] uppercase">
-            // AUDIT & RECENT TELEMETRY
+            {"// AUDIT & RECENT TELEMETRY"}
           </div>
           <div className="space-y-2">
             {projectActivities.length > 0 ? (
@@ -265,12 +266,13 @@ function ProjectDetailContent() {
               ))
             ) : (
               <div className="text-xs font-mono-tech text-[#58616B] py-4 text-center">
-                // No logged activities specifically targeting this project.
+                {"// No logged activities specifically targeting this project."}
               </div>
             )}
           </div>
         </Card>
       )}
+
     </div>
   );
 }

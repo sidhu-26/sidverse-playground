@@ -13,21 +13,22 @@ import {
   ShieldAlert,
   Target,
   FileText,
-  User,
-  Activity,
   Menu,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 
 export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
   const pathname = usePathname();
   const {
+    currentUser,
+    logout,
     currentDateFormatted,
     setIsCommandPaletteOpen,
     notifications,
     setIsNotificationsDrawerOpen,
     setQuickAddModalType,
   } = useOS();
+
 
   const [quickAddMenuOpen, setQuickAddMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -156,8 +157,9 @@ export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
               />
               <div className="absolute right-0 top-10 z-50 w-72 bg-[#0F141A] border border-white/15 rounded-[8px] shadow-[0_15px_40px_rgba(0,0,0,0.8)] py-1.5 overflow-hidden animate-in zoom-in-95 duration-100 cyber-corners">
                 <div className="px-3 py-1 border-b border-white/[0.06] font-mono-tech text-[10px] text-[#58616B] uppercase">
-                  // FAST REGISTRATION PROTOCOL
+                  {"// FAST REGISTRATION PROTOCOL"}
                 </div>
+
                 <div className="divide-y divide-white/[0.04]">
                   {quickAddOptions.map((opt) => (
                     <button
@@ -205,8 +207,8 @@ export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
             onClick={() => setUserMenuOpen(!userMenuOpen)}
             className="flex items-center gap-2 p-1.5 rounded-[6px] bg-[#0F141A] border border-white/10 hover:border-white/25 transition-colors cursor-pointer"
           >
-            <div className="w-6 h-6 rounded-[4px] bg-[#00E5FF]/10 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] font-mono-tech text-xs">
-              S
+            <div className="w-6 h-6 rounded-[4px] bg-[#00E5FF]/10 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] font-mono-tech text-xs uppercase">
+              {currentUser?.display_name ? currentUser.display_name.charAt(0) : currentUser?.email ? currentUser.email.charAt(0) : "S"}
             </div>
           </button>
 
@@ -216,13 +218,13 @@ export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
                 className="fixed inset-0 z-40"
                 onClick={() => setUserMenuOpen(false)}
               />
-              <div className="absolute right-0 top-10 z-50 w-56 bg-[#0F141A] border border-white/15 rounded-[8px] shadow-2xl p-3 text-xs space-y-2">
+              <div className="absolute right-0 top-10 z-50 w-64 bg-[#0F141A] border border-white/15 rounded-[8px] shadow-2xl p-3 text-xs space-y-2 cyber-corners">
                 <div className="pb-2 border-b border-white/[0.08]">
-                  <div className="font-sans-main font-semibold text-[#F4F7FA]">
-                    SIDDARTH
+                  <div className="font-sans-main font-semibold text-[#F4F7FA] truncate">
+                    {currentUser?.display_name || "COMMANDER"}
                   </div>
-                  <div className="font-mono-tech text-[10px] text-[#00E5FF]">
-                    COMMANDER // ROOT ACCESS
+                  <div className="font-mono-tech text-[10px] text-[#00E5FF] truncate">
+                    {currentUser?.email || "COMMANDER // ROOT ACCESS"}
                   </div>
                 </div>
                 <div className="space-y-1 font-mono-tech text-[11px] text-[#8B96A3]">
@@ -232,8 +234,19 @@ export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
                   </div>
                   <div className="flex items-center justify-between py-1">
                     <span>SECURITY</span>
-                    <span className="text-[#00E5FF]">ENCRYPTED</span>
+                    <span className="text-[#00E5FF]">ARGON2ID</span>
                   </div>
+                </div>
+                <div className="pt-2 border-t border-white/[0.08]">
+                  <button
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      logout();
+                    }}
+                    className="w-full py-1.5 px-2 rounded-[4px] bg-[#FF4567]/10 hover:bg-[#FF4567]/20 border border-[#FF4567]/30 text-[#FF4567] text-xs font-mono-tech transition-colors text-center cursor-pointer"
+                  >
+                    [ TERMINATE SESSION / LOGOUT ]
+                  </button>
                 </div>
               </div>
             </>
@@ -241,5 +254,6 @@ export function TopBar({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
         </div>
       </div>
     </header>
+
   );
 }

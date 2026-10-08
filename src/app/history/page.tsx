@@ -3,7 +3,7 @@
 import React from "react";
 import { useOS } from "@/lib/context/OSContext";
 import { Card } from "@/components/ui/Card";
-import { History as HistoryIcon, CheckCircle2, Play, Calendar, Clock, Plus } from "lucide-react";
+import { History as HistoryIcon, CheckCircle2, Play, Clock, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function HistoryPage() {

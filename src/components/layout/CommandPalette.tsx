@@ -39,11 +39,15 @@ export function CommandPalette() {
 
   useEffect(() => {
     if (isCommandPaletteOpen) {
-      setQuery("");
-      setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      const timer = setTimeout(() => {
+        setQuery("");
+        setSelectedIndex(0);
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
     }
   }, [isCommandPaletteOpen]);
+
 
   if (!isCommandPaletteOpen) return null;
 
@@ -194,6 +198,16 @@ export function CommandPalette() {
             icon: <ShieldAlert className="w-4 h-4 text-[#FF4567]" />,
             action: () => router.push("/deadlines"),
           })),
+        ...events
+          .filter((e) => e.title.toLowerCase().includes(q))
+          .map((e) => ({
+            id: `evt-${e.id}`,
+            title: e.title,
+            category: "SCHEDULE",
+            shortcut: e.startTime,
+            icon: <Calendar className="w-4 h-4 text-[#B7FF3C]" />,
+            action: () => router.push("/schedule"),
+          })),
       ]
     : [];
 
@@ -260,9 +274,10 @@ export function CommandPalette() {
         <div className="max-h-80 overflow-y-auto p-2 space-y-0.5">
           {displayedItems.length === 0 ? (
             <div className="py-8 text-center text-xs font-mono-tech text-[#58616B]">
-              // No matching commands or records found.
+              {"// No matching commands or records found."}
             </div>
           ) : (
+
             displayedItems.map((item, idx) => {
               const isSelected = idx === selectedIndex;
               return (

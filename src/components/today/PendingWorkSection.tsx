@@ -108,8 +108,9 @@ export function PendingWorkSection() {
       <div className="space-y-2">
         {currentList.length === 0 ? (
           <div className="p-8 text-center bg-[#0F141A]/40 rounded-[6px] border border-dashed border-white/10 font-mono-tech text-xs text-[#58616B]">
-            // No tasks in this category. Queue nominal.
+            {"// No tasks in this category. Queue nominal."}
           </div>
+
         ) : (
           currentList.map((task) => <TaskRow key={task.id} task={task} />)
         )}

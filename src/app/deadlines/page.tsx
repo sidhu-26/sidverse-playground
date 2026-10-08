@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 
 export default function DeadlinesPage() {
   const { deadlines, setQuickAddModalType } = useOS();
-  const [now, setNow] = useState<number>(1791462000000);
+  const [now, setNow] = useState<number>(() => Date.now());
 
   useEffect(() => {
-    setNow(Date.now());
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
+
 
   // Format countdown into Days, Hours, Minutes, Seconds
   const getCountdown = (targetTs: number) => {
